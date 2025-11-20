@@ -30,7 +30,7 @@ for i in range(num_nodes):
     row = []
     for j in range(num_nodes):
         d = haversine(lats[i], lons[i], lats[j], lons[j])
-        t = int(round((d / 30) * 60))  # 30 km/h → minutes
+        t = int(round((d / 50) * 60))
         row.append(t)
     time_matrix.append(row)
 
@@ -57,11 +57,12 @@ routing.SetArcCostEvaluatorOfAllVehicles(transit_callback_index)
 # -----------------------------------------
 routing.AddDimension(
     transit_callback_index,
-    30,     # waiting allowed
-    120,    # max route duration
+    30,
+    240,
     False,
     "Time"
 )
+
 
 time_dim = routing.GetDimensionOrDie("Time")
 
